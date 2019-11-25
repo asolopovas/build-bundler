@@ -27,7 +27,7 @@ class WebpackConfig {
 
   buildOutput() {
     this.config.output.path = absolutePath(dev.js.dest)
-    this.config.output.publicPath = publicPath(dev.js.dest)
+    this.config.output.publicPath = `${publicPath(dev.js.dest)}/`
   }
 
   buildEntry() {

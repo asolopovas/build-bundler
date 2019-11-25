@@ -7,31 +7,21 @@ function file(path) {
 }
 
 function absolutePath(paths, root = process.cwd()) {
-  if (Array.isArray(paths)) {
-    return paths.map(path => {
-      path.resolve(root, path)
-    })
-  }
-
-  return path.resolve(root, paths)
+  return Array.isArray(paths)
+    ? paths.map(_path => path.resolve(root, _path))
+    : path.resolve(root, paths)
 }
 
 function publicPath(_path, root = process.cwd()) {
-  const absolutePath = path.join(root, _path)
+  const absolutePath = _path.substr(-1) === '/'
+    ? path.resolve(root, _path).replace(/$\//g, '')
+    : path.resolve(root, _path)
   if (root.includes('wp-content') || fs.existsSync(`${root}/wp-content`)) {
-    if ( !fs.existsSync(absolutePath) ) {
-      fs.mkdirSync(absolutePath)
-    }
-    return fs.lstatSync(absolutePath).isDirectory()
-      ? absolutePath
-        .replace(/^.*(?=\\wp-content|\/wp-content)/g, '')
-        .replace(/\\/g, '/')
-        .replace(/$/g, '/')
-      : absolutePath
-        .replace(/^.*(?=\\wp-content|\/wp-content)/g, '')
-        .replace(/\\/g, '/')
+    return absolutePath
+      .replace(/^.*(?=\\wp-content|\/wp-content)/g, '')
+      .replace(/\\/g, '/')
   }
-  return '/'
+  return ''
 }
 
 function joinPath(...paths) {

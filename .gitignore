@@ -1,0 +1,15 @@
+dummy-site/dist
+node_modules
+npm-debug.log
+yarn-error.log
+dev-manifest.json
+
+# Editor directories and files
+.idea
+.vscode
+.nyc_output
+.pnp.js
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

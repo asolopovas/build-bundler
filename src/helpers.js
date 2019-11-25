@@ -19,6 +19,9 @@ function absolutePath(paths, root = process.cwd()) {
 function publicPath(_path, root = process.cwd()) {
   const absolutePath = path.join(root, _path)
   if (root.includes('wp-content') || fs.existsSync(`${root}/wp-content`)) {
+    if ( !fs.existsSync(absolutePath) ) {
+      fs.mkdirSync(absolutePath)
+    }
     return fs.lstatSync(absolutePath).isDirectory()
       ? absolutePath
         .replace(/^.*(?=\\wp-content|\/wp-content)/g, '')

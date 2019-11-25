@@ -1,6 +1,7 @@
 const argv = require('yargs').argv
 const workbox = require('workbox-build')
 const {watch} = require('gulp')
+const {absolutePath} = require('../../src/helpers')
 
 function generateSW() {
   return workbox.injectManifest(dev.workbox).then(({warnings}) => {
@@ -13,9 +14,10 @@ function generateSW() {
   })
 }
 
-function watchSW() {
+function watchSW(cb) {
   generateSW()
-  watch(dev.workbox.swSrc, generateSW)
+  watch(absolutePath(dev.workbox.swSrc), generateSW)
+  cb()
 }
 
 module.exports = argv.watch ? watchSW : generateSW

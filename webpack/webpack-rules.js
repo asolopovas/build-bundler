@@ -18,7 +18,7 @@ let rules = [
   // },
   {
     test: /\.js?$/,
-    exclude: /node_modules/,
+    exclude: /(node_modules|vendor)/,
     use: {
       loader: 'babel-loader',
       options: {
@@ -33,6 +33,8 @@ let rules = [
   },
   {
     test: /\.tsx?$/,
+    exclude: /(node_modules|vendor)/,
+    exclude: /vendor/,
     use: {
       loader: 'awesome-typescript-loader',
     },

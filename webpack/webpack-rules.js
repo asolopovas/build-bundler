@@ -103,10 +103,7 @@ if (argv.extract) {
   sassPlugins.unshift(MiniCssExtractPlugin.loader)
 } else {
   sassPlugins.unshift({
-    loader: 'style-loader',
-    options: {
-      sourceMap: true,
-    },
+    loader: 'style-loader'
   })
 }
 

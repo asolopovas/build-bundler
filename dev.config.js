@@ -1,6 +1,7 @@
 const dev = require('./src/index')
+const webpack = require('webpack')
 
-dev.js('dummy-site/src/app.js', 'dummy-site/dist',
+dev.js('dummy-site/src/app.js', 'dummy-site/dist/js',
   {
     resolve: {
       extensions: ['.js', '.jsx', '.tsx', '.ts', '.vue', '.svg'],
@@ -11,7 +12,14 @@ dev.js('dummy-site/src/app.js', 'dummy-site/dist',
         'node_modules',
       ],
     },
-  }).sass('dummy-site/src/app.scss', 'dummy-site/build', {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery'
+      })
+    ],
+  }).sass('dummy-site/src/app.scss', 'dummy-site/dist/css', {
   includePaths: ['node_modules/foundation-sites/scss'],
 }).bs({
   proxy: process.env.APP_URL,

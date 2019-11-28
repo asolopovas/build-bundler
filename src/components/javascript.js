@@ -13,6 +13,7 @@ class Javascript {
     this.src = src
     this.dest = dest
     this.opts = opts
+    this.opts.resolve.modules = opts.resolve.modules.map(i => absolutePath(i))
     return parent
   }
 

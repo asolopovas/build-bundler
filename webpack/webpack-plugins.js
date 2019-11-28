@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ProductionLogic = require('./plugins/production-logic')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const Dotenv = require('dotenv-webpack');
 const dev = require('../src/config')
 
@@ -37,6 +38,10 @@ if (argv.production) {
 
 if (argv.hot) {
   plugins.push(new webpack.HotModuleReplacementPlugin())
+}
+
+if ( argv.analyze ) {
+   plugins.push(new BundleAnalyzerPlugin())
 }
 
 module.exports = plugins

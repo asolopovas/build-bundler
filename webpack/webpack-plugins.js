@@ -11,6 +11,10 @@ const plugins = [
   new VueLoaderPlugin(),
 ]
 
+if ( dev.js.opts.hasOwnProperty('plugins') ) {
+   plugins.push(...dev.js.opts.plugins)
+}
+
 if (argv.extract) {
   plugins.push(
     new MiniCssExtractPlugin({

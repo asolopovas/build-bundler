@@ -18,7 +18,8 @@
   "scripts": {
     "start": "npm run prod",
     "prod": "gulp clean sassRest sassCritical webpack serviceWorker --series --production",
-    "dev": "gulp clean sass webpack --series",
+    "dev": "gulp clean sass webpack --series --sourcemaps",
+    "sass": "gulp sass --series --sourcemaps",
     "webpack": "webpack",
     "test": "nyc ava --verbose --serial",
     "test-watch": "nyc ava --verbose --serial --watch",

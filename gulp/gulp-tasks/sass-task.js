@@ -3,7 +3,8 @@ const argv = require('yargs').argv;
 const {src, dest} = require('gulp')
 const sass = require('gulp-sass')
 const JsonStore = require('../../src/JsonStore')
-
+const {publicPath, file} = require('../../src/helpers')
+const path = require('path')
 // -------------------------------------
 // Post Css
 // -------------------------------------
@@ -87,6 +88,13 @@ class Sass {
     // Wrap pipe between src and dest with sourcemaps
     if (this.sourcemaps) {
       this.pipeline.unshift(sourcemaps.init())
+      this.pipeline.push(sourcemaps.mapSources((sourcePath, file) => {
+        if (sourcePath.includes('node_modules') || new RegExp('.css$').test(sourcePath)) {
+          return sourcePath
+        }
+        const fullPath = path.resolve(file._base, sourcePath)
+        return path.relative(dev.sass.dest, fullPath)
+      }))
       this.pipeline.push(sourcemaps.write('.'))
     }
 

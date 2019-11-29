@@ -89,7 +89,7 @@ class Sass {
     if (this.sourcemaps) {
       this.pipeline.unshift(sourcemaps.init())
       this.pipeline.push(sourcemaps.mapSources((sourcePath, file) => {
-        if (sourcePath.includes('node_modules') || new RegExp('.css$').test(sourcePath)) {
+        if (sourcePath.includes('node_modules') || new RegExp(/\.css$/).test(sourcePath)) {
           return sourcePath
         }
         const fullPath = path.resolve(file._base, sourcePath)

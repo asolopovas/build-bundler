@@ -9,18 +9,17 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 const Sass = require('./sass-task.js')
 
 function bs(cb) {
-  let middleware = []
+  const webpack = require('webpack')
+  const bundler = webpack(webpackConfig)
+  let middleware = [
+    webpackDevMiddleware(bundler, {
+      publicPath: webpackConfig.output.publicPath,
+      stats: {colors: true, chunks: false, modules: false},
+    }),
+  ]
 
   if (argv.hot) {
-    const webpack = require('webpack')
-    const bundler = webpack(webpackConfig)
-    middleware = [
-      webpackDevMiddleware(bundler, {
-        publicPath: webpackConfig.output.publicPath,
-        stats: {colors: true, chunks: false, modules: false},
-      }),
-      webpackHotMiddleware(bundler),
-    ]
+    middleware.push(webpackHotMiddleware(bundler))
   }
 
   const config = {

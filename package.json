@@ -1,6 +1,6 @@
 {
   "name": "dev-conf",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "author": "Andrius Solopovas <andrius.solopovas@gmail.com>",
   "description": "Wrapper for webpack and gulp configs",
@@ -123,11 +123,11 @@
     "webpack-hot-middleware": "^2.22",
     "webpack-merge": "^4.2.1",
     "workbox-build": "^4.0",
-    "yargs": "^15.0"
+    "yargs": "^15.0",
+    "cssnano": "^4.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.1",
-    "cssnano": "^4.0",
     "jquery": "^3.4.1",
     "postcss-critical-split": "^2.5.1",
     "postcss-css-variables": "^0.14.0",

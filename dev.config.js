@@ -1,21 +1,29 @@
+require('dotenv').config()
 const argv = require('yargs').argv
 const dev = require('./src/index')
 const webpack = require('webpack')
 const postcssCriticalSplit = require('postcss-critical-split')
+const postcssEnvFunction = require('postcss-env-function')
 
-const postcssPlugins = []
+const envVars = postcssEnvFunction({
+  importFrom: [
+    {
+      environmentVariables: {
+        '--css-color': process.env.CSS_COLOR,
+      },
+    },
+  ],
+})
+let postcssPlugins = [envVars]
 
-if (argv.production) {
-  postcssPlugins.push(require('cssnano')({preset: 'default'}))
-}
-
-if (argv.critical) {
-  postcssPlugins.push(postcssCriticalSplit({
-    start: 'critical:start',
-    stop: 'critical:end',
-    suffix: '-critical',
-    output: this.critical.output,
-  }))
+if (argv.critical || argv.criticalRest) {
+  const criticalSplit = postcssCriticalSplit(
+    {output: argv.critical ? 'critical' : 'rest'},
+  )
+  postcssPlugins.push(
+    criticalSplit,
+    require('autoprefixer'),
+  )
 }
 
 dev
@@ -41,7 +49,8 @@ dev
     includePaths: ['node_modules/foundation-sites/scss'],
   })
   .postcss([
-    require('tailwindcss')('./tailwind-config.js'),
+    require('tailwindcss')('./tailwind.config.js'),
+    ...postcssPlugins,
   ])
   .bs({
     proxy: process.env.APP_URL,

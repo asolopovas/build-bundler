@@ -1,14 +1,19 @@
-@import "modules/module1";
-.app {
-  body {
-    color: #fff;
-  }
+.rest-vars {
+  color: env(--css-color);
+  user-select: none;
 }
 
+.rest {
+  color: #fff;
+  user-select: none;
+}
 /* critical:start */
-.app {
-  div {
-    color: #fff;
-  }
+.critical {
+  color: env(--css-color);
+  user-select: none;
+}
+.critical {
+  color: #fff;
+  user-select: none;
 }
 /* critical:end */

@@ -3,8 +3,8 @@ const argv = require('yargs').argv;
 const {src, dest} = require('gulp')
 const sass = require('gulp-sass')
 const JsonStore = require('../../src/JsonStore')
-const {publicPath, file} = require('../../src/helpers')
 const path = require('path')
+const cssnano = require('cssnano')({preset: 'default'})
 // -------------------------------------
 // Post Css
 // -------------------------------------
@@ -28,18 +28,22 @@ class Sass {
     return this
   }
 
-
   postcssPlugins() {
     let postcssPlugins = []
     if (!!(dev.postcss)) {
-      postcssPlugins = [...dev.postcss]
+      postcssPlugins = argv.production
+        ? [...dev.postcss, cssnano]
+        : [...dev.postcss]
     }
     this.pipeline.push(postcss(postcssPlugins))
   }
 
   setDestination() {
     // Destination pipe
-    let destination = dest(dev.sass.dest)
+
+    let destination = argv.critical
+      ? dest(`${dev.sass.dest}/critical`)
+      : dest(dev.sass.dest)
     if (this.stream) {
       this.pipeline.push(destination)
       this.pipeline.push(browserSync.stream())
@@ -54,7 +58,7 @@ class Sass {
     this.postcssPlugins()
 
     // Post css piping
-    if (argv.production) {
+    if (argv.production && !argv.critical) {
       this.pipeline.push(hash(new JsonStore('dev-manifest.json')))
     }
 

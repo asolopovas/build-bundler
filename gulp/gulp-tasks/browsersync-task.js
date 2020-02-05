@@ -33,9 +33,16 @@ function bs(cb) {
     return (new Sass()).setStream().setup().src
   }
 
-  let watchPath = path.dirname(dev.sass.src)
-                      .replace(/\\/g, '/')
-  watch([`${watchPath}/**/*.scss`], streamSass)
+  if ( Array.isArray(dev.sass.src) ) {
+    const watchPaths = dev.sass.src.map(item => {
+      let itemPath =path.dirname(item).replace(/\\/g, '/')
+      return `${itemPath}/**/*.scss`
+    })
+    watch(watchPaths, streamSass)
+  } else {
+    let watchPath = path.dirname(dev.sass.src)
+    watch([`${watchPath}/**/*.scss`], streamSass)
+  }
   cb()
 }
 

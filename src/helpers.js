@@ -13,6 +13,9 @@ function absolutePath(paths, root = process.cwd()) {
 }
 
 function publicPath(_path, root = process.cwd()) {
+  if ( fs.existsSync(`${root}/artisan`) ) {
+    return dev.js.dest.replace('public', '')
+  }
   const absolutePath = _path.substr(-1) === '/'
     ? path.resolve(root, _path).replace(/$\//g, '')
     : path.resolve(root, _path)

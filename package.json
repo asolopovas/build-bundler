@@ -1,6 +1,6 @@
 {
   "name": "dev-conf",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "license": "MIT",
   "author": "Andrius Solopovas <andrius.solopovas@gmail.com>",
   "description": "Wrapper for webpack and gulp configs",

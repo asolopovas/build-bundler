@@ -1,6 +1,5 @@
 const argv = require('yargs').argv
 const webpack = require('webpack')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ProductionLogic = require('./plugins/production-logic')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -9,7 +8,6 @@ const dev = require('../src/config')
 
 const plugins = [
   new Dotenv(),
-  new VueLoaderPlugin(),
 ]
 
 if ( dev.js.opts.hasOwnProperty('plugins') ) {

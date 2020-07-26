@@ -1,5 +1,5 @@
 const Path = require('../Path')
-const merge = require('webpack-merge')
+const {merge} = require('webpack-merge')
 
 class BrowserSync {
 

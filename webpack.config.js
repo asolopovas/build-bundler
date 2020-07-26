@@ -1,5 +1,5 @@
 const argv = require('yargs').argv
-const merge = require('webpack-merge')
+const {merge} = require('webpack-merge')
 const dev = require('./src/config')
 const defaultConfig = require('./webpack/webpack.default')
 const rules = require('./webpack/webpack-rules')

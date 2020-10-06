@@ -17,7 +17,7 @@ let rules = [
   //   },
   // },
   {
-    test: /\.js?$/,
+    test: /\.jsx?$/,
     exclude: /(node_modules|vendor)/,
     use: {
       loader: 'babel-loader',

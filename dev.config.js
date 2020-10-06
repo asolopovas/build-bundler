@@ -56,6 +56,12 @@ dev
     proxy: process.env.APP_URL,
     cors: true,
     notify: false,
+    https: {
+      key: 'src/ssl/localhost.key',
+      cert: 'src/ssl/localhost.crt',
+    },
+    files: [
+      'src/server/**'],
     port: 3000,
     open: false,
     online: false,

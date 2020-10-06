@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start": "npm run prod",
+    "server": "gulp clean sass browserSync server --series --sourcemaps --hot",
     "prod": "gulp clean sass webpack --series --production --critical",
     "dev": "gulp clean sass webpack --series --sourcemaps",
     "sass": "gulp sass --series --sourcemaps",

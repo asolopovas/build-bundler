@@ -18,8 +18,7 @@ function server(done) {
 
 exports.clean = CleanExistingAssets
 exports.sass = tasks.Sass
-exports.server = parallel(server, tasks.BrowserSync)
-
+exports.server = server
 exports.browserSync = tasks.BrowserSync
 exports.webpack = tasks.Webpack
 exports.serviceWorker = tasks.ServiceWorker

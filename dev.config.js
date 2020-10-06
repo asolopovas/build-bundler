@@ -61,7 +61,7 @@ dev
       cert: 'src/ssl/localhost.crt',
     },
     files: [
-      'src/server/**'],
+      'src/server/**', 'dummy-site/src/**'],
     port: 3000,
     open: false,
     online: false,

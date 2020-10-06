@@ -36,7 +36,7 @@ let rules = [
     exclude: /(node_modules|vendor)/,
     exclude: /vendor/,
     use: {
-      loader: 'awesome-typescript-loader',
+      loader: 'ts-loader',
     },
   },
   {

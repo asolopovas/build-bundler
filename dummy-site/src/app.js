@@ -1,2 +1,1 @@
-console.log('test')
-$('.book')
+import Vue from 'vue'

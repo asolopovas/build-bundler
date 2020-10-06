@@ -1,7 +1,11 @@
 .rest-vars {
-  color: env(--css-color);
   user-select: none;
 }
+
+.tailwindtest {
+  @apply pb-4;
+}
+
 
 .rest {
   color: #fff;
@@ -9,11 +13,6 @@
 }
 /* critical:start */
 .critical {
-  color: env(--css-color);
-  user-select: none;
-}
-.critical {
-  color: #fff;
   user-select: none;
 }
 /* critical:end */

@@ -14,7 +14,7 @@ class Path {
   }
 
   /**
-   * Determine the path to the user's webpack.mix.js file.
+   * Determine the path to the user's dev.config.js file.
    */
   conf() {
     return this.root(

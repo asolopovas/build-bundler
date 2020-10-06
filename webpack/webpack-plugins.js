@@ -9,11 +9,11 @@ const dev = require('../src/config')
 
 const plugins = [
   new Dotenv(),
-  new VueLoaderPlugin()
+  new VueLoaderPlugin(),
 ]
 
-if ( dev.js.opts.hasOwnProperty('plugins') ) {
-   plugins.push(...dev.js.opts.plugins)
+if (dev.js.opts.hasOwnProperty('plugins')) {
+  plugins.push(...dev.js.opts.plugins)
 }
 
 if (argv.extract) {
@@ -40,8 +40,8 @@ if (argv.hot) {
   plugins.push(new webpack.HotModuleReplacementPlugin())
 }
 
-if ( argv.analyze ) {
-   plugins.push(new BundleAnalyzerPlugin())
+if (argv.analyze) {
+  plugins.push(new BundleAnalyzerPlugin())
 }
 
 module.exports = plugins

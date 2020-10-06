@@ -34,7 +34,6 @@ let rules = [
   {
     test: /\.tsx?$/,
     exclude: /(node_modules|vendor)/,
-    exclude: /vendor/,
     use: {
       loader: 'ts-loader',
     },

@@ -35,13 +35,13 @@ function bs(cb) {
 
   if ( Array.isArray(dev.sass.src) ) {
     const watchPaths = dev.sass.src.map(item => {
-      let itemPath =path.dirname(item).replace(/\\/g, '/')
+      let itemPath = path.dirname(item).replace(/\\/g, '/')
       return `${itemPath}/**/*.scss`
     })
-    watch(watchPaths, streamSass)
+    watch(watchPaths.push(`${process.cwd()}/tailwind.config.js`), streamSass)
   } else {
     let watchPath = path.dirname(dev.sass.src)
-    watch([`${watchPath}/**/*.scss`], streamSass)
+    watch([`${watchPath}/**/*.scss`, `${process.cwd()}/tailwind.config.js`], streamSass)
   }
   cb()
 }

@@ -1,16 +1,13 @@
 const rm = require('rimraf')
 
 module.exports = function clean(paths) {
+  let result = ''
   if (Array.isArray(paths)) {
     for (let path of paths) {
-      rm(path, function(error) {
-        if (error) throw error
-      })
+      rm.sync(path, [])
     }
-    return
+    return Promise.resolve(result)
   }
-  rm(paths, function(error) {
-    if (error) throw error
-  })
-  return
+  rm.sync(paths, [])
+  return Promise.resolve(result)
 }

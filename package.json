@@ -24,7 +24,7 @@
     "sass-critical": "gulp sass --critical --production",
     "sass-rest": "gulp sass --critical-rest --production",
     "webpack": "webpack",
-    "test": "nyc ava --verbose --serial",
+    "test": "nyc ava --serial",
     "test-watch": "nyc ava --verbose --serial --watch",
     "browsersync": "gulp clean sass browserSync --series --sourcemaps --hot",
     "service-worker": "gulp serviceWorker",
@@ -33,6 +33,9 @@
   "ava": {
     "files": [
       "tests/**/*.test.js"
+    ],
+    "ignoredByWatcher": [
+      "dummy-site/**"
     ],
     "babel": {
       "testOptions": {

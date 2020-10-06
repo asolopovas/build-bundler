@@ -1,4 +1,6 @@
-dummy-site/dist
+dummy-site/temp/**
+!dummy-site/temp/.gitkeep
+!dummy-site/dist/.gitkeep
 node_modules
 npm-debug.log
 yarn-error.log

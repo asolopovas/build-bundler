@@ -18,3 +18,4 @@ test('return correct absolute path', t => {
     absolutePath(paths, rootPath), paths.map(_path => path.resolve(rootPath, _path)),
   )
 })
+

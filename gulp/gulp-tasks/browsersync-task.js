@@ -38,7 +38,8 @@ function bs(cb) {
       let itemPath = path.dirname(item).replace(/\\/g, '/')
       return `${itemPath}/**/*.scss`
     })
-    watch(watchPaths.push(`${process.cwd()}/tailwind.config.js`), streamSass)
+    watchPaths.push(`${process.cwd()}/tailwind.config.js`)
+    watch(watchPaths, streamSass)
   } else {
     let watchPath = path.dirname(dev.sass.src)
     watch([`${watchPath}/**/*.scss`, `${process.cwd()}/tailwind.config.js`], streamSass)

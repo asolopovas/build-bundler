@@ -1,3 +1,4 @@
+import regeneratorRuntime from "regenerator-runtime";
 import test from 'ava'
 // import fs from 'fs'
 
@@ -12,7 +13,5 @@ test.before(async t => {
 test('browsersync built successful', async t => {
   t.true(true)
 })
-
-
 
 

@@ -1,3 +1,4 @@
+import regeneratorRuntime from "regenerator-runtime";
 import test from 'ava'
 import fs from 'fs'
 

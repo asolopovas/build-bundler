@@ -4,7 +4,7 @@ const ProductionLogic = require('./plugins/production-logic')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const Dotenv = require('dotenv-webpack')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const {VueLoaderPlugin} = require('vue-loader')
 const dev = require('../src/config')
 
 const plugins = [

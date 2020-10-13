@@ -10,6 +10,10 @@ const dev = require('../src/config')
 const plugins = [
   new Dotenv(),
   new VueLoaderPlugin(),
+  new webpack.DefinePlugin({
+    // Drop Options API from bundle
+    __VUE_OPTIONS_API__: false,
+  }),
 ]
 
 if (dev.js.opts.hasOwnProperty('plugins')) {

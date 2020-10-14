@@ -31,7 +31,7 @@ dev
     resolve: {
       extensions: ['.js', '.jsx', '.tsx', '.ts', '.vue', '.svg'],
       alias: {
-        'vue$': 'vue/dist/vue.esm.js',
+        'vue$': 'vue/dist/vue.esm-browser.js',
       },
       modules: [
         'node_modules',

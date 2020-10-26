@@ -29,13 +29,10 @@ if (argv.critical || argv.criticalRest) {
 dev
   .js('dummy-site/src/app.js', 'dummy-site/dist/js', {
     resolve: {
-      extensions: ['.js', '.jsx', '.tsx', '.ts', '.vue', '.svg'],
+      extensions: ['.css'],
       alias: {
         'vue$': 'vue/dist/vue.esm-browser.js',
       },
-      modules: [
-        'node_modules',
-      ],
     },
     plugins: [
       new webpack.ProvidePlugin({

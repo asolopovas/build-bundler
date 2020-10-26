@@ -37,17 +37,7 @@
     ],
     "ignoredByWatcher": [
       "dummy-site/**"
-    ],
-    "babel": {
-      "testOptions": {
-        "plugins": [
-          "@babel/plugin-syntax-jsx",
-          "@babel/plugin-syntax-dynamic-import",
-          "@babel/plugin-syntax-import-meta"
-        ],
-        "presets": []
-      }
-    }
+    ]
   },
   "dependencies": {
     "@ava/babel": "^1.0.1",
@@ -131,6 +121,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "postcss-critical-split": "^2.5.1",
     "postcss-css-variables": "^0.17.0",

@@ -27,7 +27,7 @@ if (argv.critical || argv.criticalRest) {
 }
 
 dev
-  .js('dummy-site/src/app.js', 'dummy-site/dist/js', {
+  .js(['dummy-site/src/app.js', 'dummy-site/src/app2.js'], 'dummy-site/dist/js', {
     resolve: {
       extensions: ['.css'],
       alias: {

@@ -25,11 +25,6 @@ if (argv.critical || argv.criticalRest) {
   )
 }
 
-
-if ( argv.production ) {
-  process.env.NODE_ENV = 'production'
-}
-
 class Sass {
 
   constructor() {

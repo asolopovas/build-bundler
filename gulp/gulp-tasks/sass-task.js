@@ -15,16 +15,6 @@ const postcss = require('gulp-postcss')
 // -------------------------------------
 const hash = require('../plugins/hash.js')
 
-if (argv.critical || argv.criticalRest) {
-  const criticalSplit = postcssCriticalSplit(
-      {output: argv.critical ? 'critical' : 'rest'},
-  )
-  postcssPlugins.push(
-      criticalSplit,
-      require('autoprefixer'),
-  )
-}
-
 class Sass {
 
   constructor() {

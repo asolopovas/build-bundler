@@ -15,6 +15,21 @@ const postcss = require('gulp-postcss')
 // -------------------------------------
 const hash = require('../plugins/hash.js')
 
+if (argv.critical || argv.criticalRest) {
+  const criticalSplit = postcssCriticalSplit(
+      {output: argv.critical ? 'critical' : 'rest'},
+  )
+  postcssPlugins.push(
+      criticalSplit,
+      require('autoprefixer'),
+  )
+}
+
+
+if ( argv.production ) {
+  process.env.NODE_ENV = 'production'
+}
+
 class Sass {
 
   constructor() {
@@ -30,6 +45,7 @@ class Sass {
 
   postcssPlugins() {
     let postcssPlugins = []
+
     if (!!(dev.postcss)) {
       postcssPlugins = argv.production
         ? [...dev.postcss, cssnano]

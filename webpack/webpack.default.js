@@ -59,8 +59,7 @@ module.exports = function() {
                 ],
             }
             : {},
-
-        devtool: argv.production ? false : 'source-maps',
+        devtool: argv.production ? 'source-map' : 'eval-source-map',
         target: 'web',
         resolve: {
             extensions: ['.js', '.jsx', '.json', '.tsx', '.ts', '.vue', '.svg'],

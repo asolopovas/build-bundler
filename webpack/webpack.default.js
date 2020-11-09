@@ -44,15 +44,14 @@ module.exports = function() {
             ? {
                 minimizer: [
                     new TerserPlugin({
-                        cache: true,
-                        parallel: true,
-                        sourceMap: true,
+                        parallel: 8,
+                        extractComments: false,
                         terserOptions: {
+                            format: {
+                                comments: false,
+                            },
                             compress: {
                                 warnings: false,
-                            },
-                            output: {
-                                comments: false,
                             },
                         },
                     }),

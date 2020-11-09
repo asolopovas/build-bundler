@@ -4,7 +4,7 @@
 const argv = require('yargs').argv
 const path = require('path')
 const {watch} = require('gulp')
-const { default: webpackDevMiddleware } = require('webpack-dev-middleware')
+const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const Sass = require('./sass-task.js')
 

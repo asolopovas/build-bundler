@@ -14,7 +14,6 @@ function bs(cb) {
   let middleware = [
     webpackDevMiddleware(bundler, {
       publicPath: webpackConfig.output.publicPath,
-      stats: {colors: true, chunks: false, modules: false},
     }),
   ]
 

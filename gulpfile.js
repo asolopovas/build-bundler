@@ -10,7 +10,6 @@ function server(done) {
     })
 }
 
-
 exports.clean = async(done) => {
     try {
         await tasks.Clean([`${dev.sass.dest}/**`, `${dev.js.dest}/**`], true)

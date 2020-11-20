@@ -1,7 +1,6 @@
 const path = require('path')
 const del = require('del');
 
-
 function stringToArray(item) {
     return Array.isArray(item) ? item : [item]
 }

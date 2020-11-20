@@ -7,7 +7,7 @@ module.exports = function() {
         context: Path.root(),
 
         mode: argv.production ? 'production' : 'development',
-
+        watch: argv.watch,
         entry: {},
         output: {
             path: '',

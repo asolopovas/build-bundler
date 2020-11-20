@@ -1,13 +1,27 @@
-const rm = require('rimraf')
+const path = require('path')
+const del = require('del');
 
-module.exports = function clean(paths) {
-  let result = ''
-  if (Array.isArray(paths)) {
-    for (let path of paths) {
-      rm.sync(path, [])
+
+function stringToArray(item) {
+    return Array.isArray(item) ? item : [item]
+}
+
+const exclude = [
+    `!${dev.js.dest}`,
+    `!${dev.sass.dest}`,
+    `!${dev.sass.dest}/critical`,
+    `!${dev.sass.dest}/critical/**`,
+    ...stringToArray(dev.sass.src).map(item => `!${dev.sass.dest}/${path.basename(item).replace('.scss', '.css')}`),
+    ...stringToArray(dev.js.src).map(item => `!${dev.js.dest}/${path.basename(item)}`),
+]
+
+module.exports = async(paths, excludeDev = false) => {
+    let result
+    paths = stringToArray(paths)
+    try {
+        result = await del(excludeDev ? [...paths, ...exclude] : paths)
+        return result
+    } catch (error) {
+        console.log(error)
     }
-    return Promise.resolve(result)
-  }
-  rm.sync(paths, [])
-  return Promise.resolve(result)
 }

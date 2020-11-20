@@ -82,7 +82,7 @@
     "gulp-nodemon": "^2.5.0",
     "gulp-postcss": "^9.0",
     "gulp-sass": "^4.0",
-    "gulp-sourcemaps": "^2.0",
+    "gulp-sourcemaps": "3.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "lodash": "^4.17.20",
     "md5": "^2.2.1",
@@ -101,6 +101,7 @@
     "sass-loader": "^10.0.2",
     "stream-combiner2": "^1.1.1",
     "style-loader": "^2.0",
+    "tailwindcss": "^2.0.1",
     "terser-webpack-plugin": "^5.0.3",
     "through2": "^4.0.2",
     "ts-loader": "^8.0.4",
@@ -120,8 +121,7 @@
     "webpack-hot-middleware": "^2.25.0",
     "webpack-merge": "^5.2.0",
     "workbox-build": "^5.0.0",
-    "yargs": "^16.0.3",
-    "tailwindcss": "^2.0.1"
+    "yargs": "^16.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^10",

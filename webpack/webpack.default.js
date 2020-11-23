@@ -5,7 +5,6 @@ const Path = require('../src/Path')
 module.exports = function() {
     return {
         context: Path.root(),
-
         mode: argv.production ? 'production' : 'development',
         watch: argv.watch,
         entry: {},

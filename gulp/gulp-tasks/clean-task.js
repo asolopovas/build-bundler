@@ -15,12 +15,10 @@ const exclude = [
 ]
 
 module.exports = async(paths, excludeDev = false) => {
-    let result
     paths = stringToArray(paths)
     try {
-        result = await del(excludeDev ? [...paths, ...exclude] : paths)
-        return result
+        await del(excludeDev ? [...paths, ...exclude] : paths)
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 }

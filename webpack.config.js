@@ -45,8 +45,8 @@ class WebpackConfig {
 
     if (argv.hot) {
       output.push(
-        'webpack-hot-middleware/client?reload=true&noInfo=true',
-        'webpack/hot/dev-server',
+          'webpack/hot/dev-server',
+          'webpack-hot-middleware/client?reload=true&noInfo=true',
       )
     }
 

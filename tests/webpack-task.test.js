@@ -4,7 +4,7 @@ const dev = require('../src/config')
 const tasks = require('../gulp-tasks')
 
 test.before(async t => {
-    await tasks.Webpack()
+    await tasks.Webpack.build()
 });
 
 test('webpack built successful', async t => {

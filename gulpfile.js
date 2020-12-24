@@ -22,5 +22,5 @@ exports.clean = async(done) => {
 exports.sass = tasks.Sass
 exports.server = server
 exports.browserSync = tasks.BrowserSync
-exports.webpack = tasks.Webpack
+exports.webpack = tasks.Webpack.build
 exports.serviceWorker = tasks.ServiceWorker

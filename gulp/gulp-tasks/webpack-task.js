@@ -6,13 +6,13 @@ function scripts() {
   const config = wp_config
   return new Promise((resolve, reject) => webpack(config, (err, stats) => {
       if (err) throw err
-      process.stdout.write(stats.toString({
-        colors: true,
-        modules: false,
-        children: false,
-        chunks: false,
-        chunkModules: false,
-      }) + '\n\n')
+    //   process.stdout.write(stats.toString({
+    //     colors: true,
+    //     modules: false,
+    //     children: false,
+    //     chunks: false,
+    //     chunkModules: false,
+    //   }) + '\n\n')
       if (stats.hasErrors()) {
         reject(false)
         console.log(chalk.red('  Build failed with errors.\n'))

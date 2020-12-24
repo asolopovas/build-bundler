@@ -13,7 +13,7 @@ function bs(cb) {
   const bundler = webpack(webpackConfig)
   let middleware = [
     webpackDevMiddleware(bundler, {
-      publicPath: webpackConfig.output.publicPath,
+      publicPath: webpackConfig.output.publicPath
     }),
   ]
 

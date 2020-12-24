@@ -11,5 +11,3 @@ test.before(t => {
 test('browsersync built successful', t => {
     t.true(true)
 })
-//
-//

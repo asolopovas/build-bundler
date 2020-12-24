@@ -3,6 +3,7 @@ const factory = require('./ComponentsFactory')
 class Api {
 
     constructor() {
+        this.sassTasks = []
         for (let component of factory.components) {
             component.props.forEach(prop => {
                 this[prop] = (...args) => component.set(...args, this)

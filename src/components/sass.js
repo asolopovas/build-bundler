@@ -9,16 +9,21 @@ class Sass {
   }
 
   set(src, dest, opts = {includePaths: []}, parent) {
-    this.src = src
-    this.dest = dest
+
     if ( opts.hasOwnProperty('includePaths') ) {
-      this.opts = opts
-      this.opts.includePaths = this.opts.includePaths.map(path => {
+      let sassOpts = opts
+      sassOpts.includePaths = opts.includePaths.map(path => {
         if (path) {
           return absolutePath(path)
         }
       })
     }
+    parent.sassTasks.push({
+        src,
+        dest,
+    })
+    this.src = src
+    this.dest = dest
 
     return parent
   }

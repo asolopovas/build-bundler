@@ -17,8 +17,9 @@ const hash = require('../plugins/hash.js')
 
 class Sass {
 
-  constructor() {
-    this.src = src(dev.sass.src)
+  constructor(_src, dest, options) {
+    this.src = src(_src)
+    this.dest = dest
     this.stream = false
     this.pipeline = []
   }
@@ -43,8 +44,8 @@ class Sass {
     // Destination pipe
 
     let destination = argv.critical
-      ? dest(`${dev.sass.dest}/critical`)
-      : dest(dev.sass.dest)
+      ? dest(`${this.dest}/critical`)
+      : dest(this.dest)
 
     if (this.stream) {
       this.pipeline.push(destination)
@@ -55,7 +56,7 @@ class Sass {
   }
 
   setup() {
-    this.pipeline.push(sass(dev.sass.opts).on('error', sass.logError))
+    this.pipeline.push(sass(this.options).on('error', sass.logError))
 
     this.postcssPlugins()
 
@@ -72,7 +73,7 @@ class Sass {
           return sourcePath
         }
         const fullPath = path.resolve(file._base, sourcePath)
-        return path.relative(dev.sass.dest, fullPath)
+        return path.relative(this.dest, fullPath)
       }))
       this.pipeline.push(sourcemaps.write('.'))
     }

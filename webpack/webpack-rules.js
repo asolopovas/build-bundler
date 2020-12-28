@@ -1,21 +1,10 @@
 const argv = require('yargs').argv
 const {publicPath, joinPath} = require('../src/helpers')
-const dev = require('../src/config')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const pPath = publicPath(dev.js.dest)
 
 let rules = [
-  // {
-  //   enforce: 'pre',
-  //   test: /\.(js|vue)$/,
-  //   use: {
-  //     loader: 'eslint-loader',
-  //     options: {
-  //       formatter: require('eslint-friendly-formatter'),
-  //     },
-  //   },
-  // },
   {
     test: /\.jsx?$/,
     exclude: /(node_modules|vendor)/,

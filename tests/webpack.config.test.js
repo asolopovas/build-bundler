@@ -1,4 +1,3 @@
-const test = require('ava')
 const config = require('../webpack.config')
 
 test('output.publicPath is correct', t => {

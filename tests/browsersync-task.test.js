@@ -1,7 +1,3 @@
-const test = require('ava')
-// import fs from 'fs'
-
-const dev = require('../src/config')
 const tasks = require('../gulp-tasks')
 
 test.before(t => {

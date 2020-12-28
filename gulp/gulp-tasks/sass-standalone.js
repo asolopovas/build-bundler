@@ -1,56 +1,34 @@
+require('../../src/index').setup()
 const sass = require('sass')
-const dev = require('../../src/config')
 const File = require('../../src/File')
-const log = console.log
 const fs = require('fs')
 
-class Sass {
+class SassStandalone {
 
-    constructor() {
-        this.tasks = this.processTasks(dev.sassTasks)
+    constructor(src, dest, options) {
+        this.src = (new File(src))
+        this.dest = new File(`${dest}/${this.src.nameWithoutExtension()}.css`)
+        this.options = options
     }
 
-    processTasks(tasks) {
-        let out = []
-        for (let {src, dest} of tasks) {
-            src = new File(src)
-            dest = new File(`${dest}/${src.nameWithoutExtension()}.css`)
-            out.push({
-                src,
-                dest
-            })
-        }
-        return out
-    }
 
-    async render(file) {
+    async render() {
         try {
-            return await sass.renderSync({file: file})
-        } catch (error) {
-            log(error)
-        }
-    }
-
-    async process(inFile, outFile) {
-        try {
-            const data = await this.render(inFile)
-            await fs.writeFileSync(outFile, data.css)
+            return await sass.renderSync({file: this.src.segments.absolutePath})
         } catch (error) {
             console.error(error)
         }
     }
 
-    async start() {
+    async write() {
         try {
-            for (let {src, dest} of this.tasks) {
-                await this.process(src.segments.absolutePath, dest.segments.absolutePath)
-            }
-        } catch (err) {
-            console.error(err)
+            const data = await this.render(this.src.segments.absolutePath)
+            await fs.writeFileSync(this.dest.segments.absolutePath, data.css, this.options)
+        } catch (error) {
+            console.error(error)
         }
     }
 
 }
 
-
-module.exports = new Sass
+module.exports = SassStandalone

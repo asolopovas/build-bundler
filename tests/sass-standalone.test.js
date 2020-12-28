@@ -1,8 +1,13 @@
-const test = require('ava')
+const fs = require('fs')
 const sass = require('../gulp/gulp-tasks/sass-standalone')
 
-test('output.publicPath is correct', t => {
-    t.true(true)
-})
+test.before(async t => {
+    sass.start()
+});
 
+test('output.publicPath is correct', t => {
+
+    t.true(true)
+
+})
 

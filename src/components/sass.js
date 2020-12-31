@@ -1,4 +1,5 @@
-let {absolutePath} = require('../helpers')
+const {absolutePath} = require('../helpers')
+const File = require('../File')
 
 class Sass {
     constructor() {
@@ -17,9 +18,9 @@ class Sass {
                 }
             })
         }
-        parent.sassTasks.push({
-            src,
-            dest,
+        parent.sassConfigs.push({
+            src: new File(src),
+            dest: new File(dest),
             opts,
         })
         this.src = src

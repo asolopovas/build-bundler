@@ -3,7 +3,7 @@
 }
 
 .tailwindtest {
-  @apply pb-4;
+  padding-bottom: 2rem;
 }
 
 .rest {
@@ -12,11 +12,14 @@
 }
 
 /* critical:start */
+
 .critical {
   user-select: none;
 }
 
 /* critical:end */
+
 div.app {
-  background: #333ccc;
+  background: #fff000;
 }
+/*# sourceMappingURL=app.css.map */

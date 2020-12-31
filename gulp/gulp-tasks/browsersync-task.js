@@ -36,7 +36,9 @@ class BS {
         const tasks = []
         for (const conf of dev.sassConfigs) {
             const sassTask = new Sass(conf.src.segments.absolutePath, conf.dest.segments.absolutePath, conf.opts)
-            const task = () => stream ? sassTask.stream().setup() : sassTask.setup()
+            const task = () => stream
+                ? sassTask.stream().setup()
+                : sassTask.setup()
             Object.defineProperty(task, 'name', {value: `compiling ${conf.src.name()}`})
             tasks.push(task)
         }
@@ -59,21 +61,9 @@ const bs = new BS()
 // const sassStreamTasks = series(...bs.tasks(true))
 const config = bs.config()
 
-const gulp = require('gulp');
-const sass = require('gulp-sass');
-sass.compiler = require('sass');
-const sourcemaps = require('gulp-sourcemaps');
 
 function sassTask() {
-    const conf = dev.sassConfigs[0]
-    console.log(conf.dest.segments.absolutePath)
-    const sassClass = new Sass(conf.src.segments.absolutePath, conf.dest.segments.absolutePath, conf.opts)
-    const sassBS = src(conf.src.segments.absolutePath)
-        .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
-        .pipe(dest(conf.dest.segments.absolutePath))
-        .pipe(browserSync.stream())
-    return sassClass.setup()
+    return bs.tasks(true)[0]()
 }
 
 module.exports = cb => {

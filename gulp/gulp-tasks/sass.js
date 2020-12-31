@@ -51,9 +51,10 @@ class Sass {
         if (this.isStream) {
             this.pipeline.push(destination)
             this.pipeline.push(browserSync.stream())
+        } else {
+            this.pipeline.push(destination)
         }
 
-        this.pipeline.push(destination)
     }
 
     setup() {

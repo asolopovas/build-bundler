@@ -1,9 +1,6 @@
-// ---------------------------------------------------
-// WebPack
-// ---------------------------------------------------
 const argv = require('yargs').argv
 const path = require('path')
-const {src, task, watch, series, parallel,dest} = require('gulp')
+const {watch, series} = require('gulp')
 const webpack = require('webpack')
 const bundler = webpack(webpackConfig)
 const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -35,12 +32,12 @@ class BS {
     tasks(stream = false) {
         const tasks = []
         for (const conf of dev.sassConfigs) {
-            const sassTask = new Sass(conf.src.segments.absolutePath, conf.dest.segments.absolutePath, conf.opts)
-            const task = () => stream
-                ? sassTask.stream().setup()
-                : sassTask.setup()
-            Object.defineProperty(task, 'name', {value: `compiling ${conf.src.name()}`})
-            tasks.push(task)
+            tasks.push(() => {
+                const sassTask = new Sass(conf.src.segments.absolutePath, conf.dest.segments.absolutePath, conf.opts)
+                return stream
+                    ? sassTask.stream().setup()
+                    : sassTask.setup()
+            })
         }
         return tasks
     }
@@ -57,18 +54,9 @@ class BS {
 }
 
 const bs = new BS()
-// const sassTasks = series(...bs.tasks())
-// const sassStreamTasks = series(...bs.tasks(true))
-const config = bs.config()
 
+module.exports = () => {
+    browserSync.init(bs.config())
 
-function sassTask() {
-    return bs.tasks(true)[0]()
-}
-
-module.exports = cb => {
-    browserSync.init(config)
-    sassTask()
-    watch(bs.watchPaths, sassTask)
-    cb()
+    watch(bs.watchPaths, series(...bs.tasks(true)))
 }

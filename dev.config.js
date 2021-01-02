@@ -1,6 +1,4 @@
-require('dotenv').config()
 const argv = require('yargs').argv
-const dev = require('./src/index')
 const webpack = require('webpack')
 const postcssCriticalSplit = require('postcss-critical-split')
 const postcssEnvFunction = require('postcss-env-function')
@@ -42,7 +40,7 @@ dev
             }),
         ],
     })
-    .sass('dummy-site/src/app.scss', 'dummy-site/dist/css', {
+    .sass('dummy-site/src/app.scss', 'dummy-site/static', {
         includePaths: ['node_modules/foundation-sites/scss'],
     })
     .sass('dummy-site/src/app2.scss', 'dummy-site/dist/css', {
@@ -54,15 +52,8 @@ dev
     ])
     .bs({
         proxy: process.env.APP_URL,
-        cors: true,
-        notify: false,
         https: {
             key: 'src/ssl/localhost.key',
             cert: 'src/ssl/localhost.crt',
         },
-        files: [
-            'src/server/**', 'dummy-site/src/**'],
-        port: 3000,
-        open: false,
-        online: false,
     })

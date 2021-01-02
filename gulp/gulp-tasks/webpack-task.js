@@ -2,13 +2,11 @@ const webpack = require('webpack')
 const chalk = require('chalk')
 const Table = require('cli-table3')
 const config = require('../../webpack.config')
-const Path = require('../../src/Path.js')
 const path = require('path')
 const {formatSize} = require('webpack/lib/SizeFormatHelpers')
 const log = console.log
 
 class WebpackTask {
-
     /**
      * Generate the stats table.
      *
@@ -20,8 +18,8 @@ class WebpackTask {
             head: [chalk.bold('Src'), chalk.bold('Dest'), chalk.bold('Size')],
             colWidths: [35],
             style: {
-                head: []
-            }
+                head: [],
+            },
         })
         const destPath = path.relative(config.context, data.outputPath)
 
@@ -44,22 +42,21 @@ class WebpackTask {
                     assets: true,
                     builtAt: true,
                     hash: true,
-                    performance: true
+                    performance: true,
                 })
 
-
                 if (statsObj.assets.length) {
-                    console.log(this.statsTable(statsObj))
+                    log(this.statsTable(statsObj))
                 }
 
                 if (stats.hasErrors()) {
                     reject(false)
-                    log(chalk.red('  Build failed with errors.\n'))
+                    log(chalk.red(' Build failed with errors.\n'))
                     process.exit(1)
                 }
                 log(chalk.green(' Build complete.'))
                 resolve(true)
-            })
+            }),
         )
     }
 }

@@ -6,13 +6,17 @@
   @apply pb-4;
 }
 
-
 .rest {
   color: #fff;
   user-select: none;
 }
+
 /* critical:start */
 .critical {
   user-select: none;
 }
 /* critical:end */
+
+div.app {
+  background: #fff;
+}

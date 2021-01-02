@@ -1,49 +1,65 @@
-// ---------------------------------------------------
-// WebPack
-// ---------------------------------------------------
 const argv = require('yargs').argv
 const path = require('path')
-const {watch} = require('gulp')
+const {watch, series} = require('gulp')
+const webpack = require('webpack')
+const bundler = webpack(webpackConfig)
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const Sass = require('./sass-task.js')
+const Sass = require('./sass')
 
-function bs(cb) {
-  const webpack = require('webpack')
-  const bundler = webpack(webpackConfig)
-  let middleware = [
-    webpackDevMiddleware(bundler, {
-      publicPath: webpackConfig.output.publicPath
-    }),
-  ]
+class BS {
+    constructor() {
+        this.watchPaths = [`${process.cwd()}/tailwind.config.js`]
+        this.setupWatchPaths()
+    }
 
-  if (argv.hot) {
-    middleware.push(webpackHotMiddleware(bundler))
-  }
+    config() {
+        let middleware = [
+            webpackDevMiddleware(bundler, {
+                publicPath: webpackConfig.output.publicPath,
+            }),
+        ]
 
-  const config = {
-    ...dev.bs,
-    middleware,
-  }
+        if (argv.hot) {
+            middleware.push(webpackHotMiddleware(bundler))
+        }
+        return {
+            ...dev.bs,
+            middleware,
+        }
+    }
 
-  browserSync.init(config)
+    tasks(stream = false) {
+        const tasks = []
+        for (const conf of dev.sassConfigs) {
+            const task = () => {
+                const sassTask = new Sass(conf.src.segments.absolutePath, conf.dest.segments.absolutePath, conf.opts)
+                return stream
+                    ? sassTask.stream().setup()
+                    : sassTask.setup()
+            }
+            Object.defineProperty(task, 'name', {value: `compiling ${conf.src.name()}`})
 
-  function streamSass() {
-    return (new Sass()).setStream().setup().src
-  }
+            tasks.push(task)
+        }
+        return tasks
+    }
 
-  if ( Array.isArray(dev.sass.src) ) {
-    const watchPaths = dev.sass.src.map(item => {
-      let itemPath = path.dirname(item).replace(/\\/g, '/')
-      return `${itemPath}/**/*.scss`
-    })
-    watchPaths.push(`${process.cwd()}/tailwind.config.js`)
-    watch(watchPaths, streamSass)
-  } else {
-    let watchPath = path.dirname(dev.sass.src)
-    watch([`${watchPath}/**/*.scss`, `${process.cwd()}/tailwind.config.js`], streamSass)
-  }
-  cb()
+    setupWatchPaths() {
+        for (const conf of dev.sassConfigs) {
+            let watchPath = path.dirname(conf.src.segments.absolutePath)
+            if (!this.watchPaths.includes(`${watchPath}/**/*.scss`)) {
+                this.watchPaths.push(`${watchPath}/**/*.scss`)
+            }
+        }
+    }
+
 }
 
-module.exports = bs
+const bs = new BS()
+
+module.exports = () => {
+    browserSync.init(bs.config())
+
+    watch(bs.watchPaths, series(...bs.tasks(true)))
+}

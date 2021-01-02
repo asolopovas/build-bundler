@@ -20,7 +20,7 @@
         "prod": "gulp clean sass webpack --series --production --critical",
         "dev": "gulp sass webpack --series --sourcemaps",
         "clean": "gulp clean",
-        "server": "gulp sass browserSync server --sourcemaps --hot",
+        "server": "gulp browserSync server --sourcemaps --hot",
         "webpack": "webpack",
         "sass": "gulp sass --series --sourcemaps",
         "sass-prod": "gulp sass --series --production",
@@ -28,11 +28,14 @@
         "sass-rest": "gulp sass --critical-rest --production",
         "test": "nyc ava --serial",
         "test-watch": "nyc ava --verbose --serial --watch",
-        "browsersync": "gulp clean sass browserSync --series --sourcemaps --hot",
+        "browsersync": "gulp clean browserSync --series --sourcemaps --hot",
         "service-worker": "gulp serviceWorker",
         "service-worker-watch": "gulp serviceWorker --watch"
     },
     "ava": {
+        "require": [
+            "./tests/bootstrap.js"
+        ],
         "files": [
             "tests/**/*.test.js"
         ],

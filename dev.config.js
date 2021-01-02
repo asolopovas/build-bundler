@@ -1,9 +1,6 @@
 const argv = require('yargs').argv
 const webpack = require('webpack')
-const postcssCriticalSplit = require('postcss-critical-split')
 const postcssEnvFunction = require('postcss-env-function')
-const autoprefixer = require('autoprefixer')
-
 
 const envVars = postcssEnvFunction({
     importFrom: [
@@ -14,16 +11,11 @@ const envVars = postcssEnvFunction({
         },
     ],
 })
-let postcssPlugins = [envVars]
+let postcssPlugins = []
 
-if (argv.critical || argv.criticalRest) {
-    const criticalSplit = postcssCriticalSplit(
-        {output: argv.critical ? 'critical' : 'rest'},
-    )
+if (argv.production) {
     postcssPlugins.push(
-        // autoprefixer(),
-        criticalSplit,
-        // require('autoprefixer'),
+        require('autoprefixer'),
     )
 }
 

@@ -23,4 +23,5 @@ exports.sass = tasks.Sass
 exports.server = server
 exports.browserSync = tasks.BrowserSync
 exports.webpack = tasks.Webpack.build
+exports.CriticalCss = tasks.CriticalCss
 exports.serviceWorker = tasks.ServiceWorker

@@ -6,6 +6,7 @@ sass.compiler = require('sass');
 const JsonStore = require('../../src/JsonStore')
 const path = require('path')
 const cssnano = require('cssnano')({preset: 'default'})
+
 // -------------------------------------
 // Post Css
 // -------------------------------------
@@ -36,9 +37,12 @@ class Sass {
 
         if (!!(dev.postcss)) {
             postcssPlugins = argv.production
-                ? [...dev.postcss, cssnano]
+                ? [
+                    ...dev.postcss, cssnano
+                ]
                 : [...dev.postcss]
         }
+
         this.pipeline.push(postcss(postcssPlugins))
     }
 

@@ -1,22 +1,22 @@
 .rest-vars {
-  user-select: none;
+    user-select: none;
 }
 
 .tailwindtest {
-  @apply pb-4;
+    @apply pb-4;
 }
 
 .rest {
-  color: #fff;
-  user-select: none;
+    color: #fff;
+    user-select: none;
 }
 
-/* critical:start */
-.critical {
-  user-select: none;
+@critical {
+    .critical {
+        user-select: none;
+    }
 }
-/* critical:end */
 
 div.app {
-  background: #fff;
+    background: #fff;
 }

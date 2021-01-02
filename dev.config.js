@@ -37,11 +37,11 @@ dev
     })
     .sass('dummy-site/src/app.scss', 'dummy-site/static/css', {
         includePaths: ['node_modules/foundation-sites/scss'],
+        postcss: [
+            require('tailwindcss')('./tailwind.config.js'),
+            ...postcssPlugins,
+        ]
     })
-    .postcss([
-        require('tailwindcss')('./tailwind.config.js'),
-        ...postcssPlugins,
-    ])
     .bs({
         proxy: process.env.APP_URL,
         https: {

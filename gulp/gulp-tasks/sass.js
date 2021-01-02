@@ -35,12 +35,12 @@ class Sass {
     postcssPlugins() {
         let postcssPlugins = []
 
-        if (!!(dev.postcss)) {
+        if (!!(this.options.postcss)) {
             postcssPlugins = argv.production
                 ? [
-                    ...dev.postcss, cssnano
+                    ...this.options.postcss, cssnano,
                 ]
-                : [...dev.postcss]
+                : [...this.options.postcss]
         }
 
         this.pipeline.push(postcss(postcssPlugins))

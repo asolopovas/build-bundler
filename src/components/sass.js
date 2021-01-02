@@ -18,11 +18,18 @@ class Sass {
                 }
             })
         }
-        parent.sassConfigs.push({
+        const sassConf = {
             src: new File(src),
             dest: new File(dest),
             opts,
-        })
+        }
+
+        if (opts.postcss) {
+            sassConf.postcss = opts.postcss
+        }
+
+        parent.sassConfigs.push(sassConf)
+
         this.src = src
         this.dest = dest
 

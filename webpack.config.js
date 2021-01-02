@@ -67,6 +67,4 @@ class WebpackConfig {
 
 }
 
-const config = (new WebpackConfig()).build()
-
-module.exports = config
+module.exports = (new WebpackConfig()).build()

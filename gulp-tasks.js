@@ -6,8 +6,10 @@ const Clean = require('./gulp/gulp-tasks/clean-task')
 const BrowserSync = require('./gulp/gulp-tasks/browsersync-task')
 const Webpack = require('./gulp/gulp-tasks/webpack-task')
 const ServiceWorker = require('./gulp/gulp-tasks/service-worker-task')
+const sassTasks = require('./gulp/gulp-tasks/sass-tasks')
 
 module.exports = {
+    Sass: sassTasks(),
     Clean,
     BrowserSync,
     Webpack,

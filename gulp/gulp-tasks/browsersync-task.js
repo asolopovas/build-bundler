@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const bundler = webpack(webpackConfig)
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const Sass = require('./sass')
+const sassTasks = require('./sass-tasks')
 
 class BS {
     constructor() {
@@ -29,22 +29,6 @@ class BS {
         }
     }
 
-    tasks(stream = false) {
-        const tasks = []
-        for (const conf of dev.sassConfigs) {
-            const task = () => {
-                const sassTask = new Sass(conf.src.segments.absolutePath, conf.dest.segments.absolutePath, conf.opts)
-                return stream
-                    ? sassTask.stream().setup()
-                    : sassTask.setup()
-            }
-            Object.defineProperty(task, 'name', {value: `compiling ${conf.src.name()}`})
-
-            tasks.push(task)
-        }
-        return tasks
-    }
-
     setupWatchPaths() {
         for (const conf of dev.sassConfigs) {
             let watchPath = path.dirname(conf.src.segments.absolutePath)
@@ -59,7 +43,8 @@ class BS {
 const bs = new BS()
 
 module.exports = () => {
+
     browserSync.init(bs.config())
 
-    watch(bs.watchPaths, series(...bs.tasks(true)))
+    watch(bs.watchPaths, sassTasks(true))
 }

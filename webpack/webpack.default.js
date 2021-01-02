@@ -10,7 +10,7 @@ module.exports = function() {
         entry: {},
         output: {
             path: '',
-            filename: argv.production ? '[name].[hash].js' : '[name].js',
+            filename: argv.production ? '[name].[contenthash].js' : '[name].js',
             chunkFilename: '[id].[chunkhash].js',
             publicPath: false,
             pathinfo: true,

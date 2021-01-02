@@ -1,4 +1,3 @@
-const argv = require('yargs').argv
 const path = require('path')
 const {watch, series} = require('gulp')
 const webpack = require('webpack')

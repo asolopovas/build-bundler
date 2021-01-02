@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const chalk = require('chalk')
 const Table = require('cli-table3')
 const config = require('../../webpack.config')
+const File = require('../../src/File')
 const path = require('path')
 const {formatSize} = require('webpack/lib/SizeFormatHelpers')
 const log = console.log
@@ -17,7 +18,7 @@ function statsTable(data) {
     const destPath = path.relative(config.context, data.outputPath)
 
     for (const asset of data.assets) {
-        let assetChunkName = asset.chunks[0]
+        let assetChunkName = asset.chunkNames[0]
         let assetPath = path.relative(config.context, path.resolve(config.entry[assetChunkName][0]))
 
         table.push([chalk.green(assetPath), chalk.green(`${destPath}/${asset.name}`), formatSize(asset.size)])
@@ -25,6 +26,7 @@ function statsTable(data) {
 
     return table.toString()
 }
+
 
 class WebpackTask {
     /**
@@ -46,13 +48,19 @@ class WebpackTask {
                     performance: true,
                 })
 
+                if (stats.hasErrors()) {
+                    console.error(statsObj.errors);
+                    process.exit(1)
+                }
+
+                if (stats.hasWarnings()) {
+                    console.warn(statsObj.warnings);
+                }
+
                 if (statsObj.assets.length) {
                     log(statsTable(statsObj))
                 }
 
-                if (stats.hasErrors()) {
-                    process.exit(1)
-                }
                 log(chalk.green(' Build complete.'))
                 return true
             })

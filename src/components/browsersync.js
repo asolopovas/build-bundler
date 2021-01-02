@@ -10,15 +10,13 @@ class BrowserSync {
 
     default() {
         let config = require(`${Path.root()}/node_modules/browser-sync/dist/default-config.js`)
-        config = Object.assign({
+        return merge(config, {
             cors: true,
             open: false,
             minify: false,
             online: false,
             logFileChanges: false,
-        }, config)
-
-        return config
+        })
     }
 
     set(opts, parent) {

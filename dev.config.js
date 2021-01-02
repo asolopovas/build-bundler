@@ -2,6 +2,8 @@ const argv = require('yargs').argv
 const webpack = require('webpack')
 const postcssCriticalSplit = require('postcss-critical-split')
 const postcssEnvFunction = require('postcss-env-function')
+const autoprefixer = require('autoprefixer')
+
 
 const envVars = postcssEnvFunction({
     importFrom: [
@@ -19,13 +21,14 @@ if (argv.critical || argv.criticalRest) {
         {output: argv.critical ? 'critical' : 'rest'},
     )
     postcssPlugins.push(
+        // autoprefixer(),
         criticalSplit,
-        require('autoprefixer'),
+        // require('autoprefixer'),
     )
 }
 
 dev
-    .js(['dummy-site/src/app.js', 'dummy-site/src/app2.js'], 'dummy-site/dist/js', {
+    .js(['dummy-site/src/app.js', 'dummy-site/src/app2.js'], 'dummy-site/static/js', {
         resolve: {
             extensions: ['.css'],
             alias: {
@@ -40,10 +43,7 @@ dev
             }),
         ],
     })
-    .sass('dummy-site/src/app.scss', 'dummy-site/static', {
-        includePaths: ['node_modules/foundation-sites/scss'],
-    })
-    .sass('dummy-site/src/app2.scss', 'dummy-site/dist/css', {
+    .sass('dummy-site/src/app.scss', 'dummy-site/static/css', {
         includePaths: ['node_modules/foundation-sites/scss'],
     })
     .postcss([

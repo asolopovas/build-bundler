@@ -52,17 +52,8 @@ dev
     ])
     .bs({
         proxy: process.env.APP_URL,
-        cors: true,
-        notify: true,
         https: {
             key: 'src/ssl/localhost.key',
             cert: 'src/ssl/localhost.crt',
         },
-        // files: [
-        //     'src/server/**', 'dummy-site/src/**'],
-        port: 3000,
-        open: false,
-        minify: false,
-        online: false,
-        logFileChanges: false,
     })

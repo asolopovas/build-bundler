@@ -18,15 +18,16 @@ function statsTable(data) {
     const destPath = path.relative(config.context, data.outputPath)
 
     for (const asset of data.assets) {
-        let assetChunkName = asset.chunkNames[0]
-        let assetPath = path.relative(config.context, path.resolve(config.entry[assetChunkName][0]))
+        let name = asset.chunkNames.length > 0 ? asset.chunkNames[0] : asset.name
+            let assetPath = config.entry.hasOwnProperty(name)
+                ? path.relative(config.context, path.resolve(config.entry[name][0]))
+                : 'N/A'
 
         table.push([chalk.green(assetPath), chalk.green(`${destPath}/${asset.name}`), formatSize(asset.size)])
     }
 
     return table.toString()
 }
-
 
 class WebpackTask {
     /**

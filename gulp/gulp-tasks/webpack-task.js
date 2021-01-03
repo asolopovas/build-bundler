@@ -37,7 +37,7 @@ class WebpackTask {
      * @returns {string}
      */
 
-    async build() {
+    build(cb) {
         try {
             webpack(config, (err, stats) => {
                 if (err) throw err
@@ -63,7 +63,7 @@ class WebpackTask {
                 }
 
                 log(chalk.green(' Build complete.'))
-                return true
+                cb()
             })
         } catch (error) {
             log(chalk.red(error))

@@ -1,0 +1,23 @@
+.rest-vars {
+  user-select: none;
+}
+
+.tailwindtest {
+  padding-bottom: 2rem;
+}
+
+.rest {
+  color: #fff;
+  user-select: none;
+}
+
+@critical {
+  .critical {
+    user-select: none;
+  }
+}
+
+div.app {
+  background: #fff;
+}
+/*# sourceMappingURL=app.css.map */

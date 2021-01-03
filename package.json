@@ -77,6 +77,7 @@
         "fs-extra": "^9.0",
         "glob": "^7.1.4",
         "gulp": "^4.0",
+        "gulp-dependents": "^1.2.5",
         "gulp-nodemon": "^2.5.0",
         "gulp-postcss": "^9.0",
         "gulp-sass": "^4.0",

@@ -5422,6 +5422,15 @@ gulp-cli@^2.2.0:
     v8flags "^3.2.0"
     yargs "^7.1.0"
 
+gulp-dependents@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/gulp-dependents/-/gulp-dependents-1.2.5.tgz#fac80cdd4a2bd1b009dc5124c3ccc4211c311b17"
+  integrity sha512-zwZzr4yxEVKlW96Ch9DS6KsmA9XrHYWYFTdJ3q7GaG6uiVNAsZUR57BlLBRCV0YkVL0sfMozJcQOGdxyOxcjQA==
+  dependencies:
+    fancy-log "^1.3.3"
+    through2 "^3.0.1"
+    vinyl "^2.2.0"
+
 gulp-nodemon@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/gulp-nodemon/-/gulp-nodemon-2.5.0.tgz#83a023f1ab4094fedae9a48e60937d768f107224"

@@ -1,7 +1,8 @@
 const sourcemaps = require('gulp-sourcemaps')
 const argv = require('yargs').argv;
-const {src, dest} = require('gulp')
+const {src, dest, lastRun} = require('gulp')
 const sass = require('gulp-sass');
+const dependents = require('gulp-dependents')
 sass.compiler = require('sass');
 const JsonStore = require('../../src/JsonStore')
 const path = require('path')
@@ -19,12 +20,45 @@ const hash = require('../plugins/hash.js')
 
 class Sass {
 
-    constructor(_src, dest, options) {
-        this.src = src(_src)
+    constructor(_src, dest, options, task) {
+        this.src = src(_src, {since: lastRun(task)})
         this.dest = dest
         this.options = options
         this.isStream = false
         this.pipeline = []
+    }
+
+    build() {
+        this.pipeline.push(dependents())
+        this.pipeline.push(sass(this.options).on('error', sass.logError))
+
+        this.postcssPlugins()
+
+        // Post css piping
+        if (argv.production && !argv.critical) {
+            this.pipeline.push(hash(new JsonStore('dev-manifest.json')))
+        }
+
+        // Wrap pipe between src and dest with sourcemaps
+        if (argv.sourcemaps) {
+            this.pipeline.unshift(sourcemaps.init())
+            this.pipeline.push(sourcemaps.mapSources((sourcePath, file) => {
+                if (sourcePath.includes('node_modules') || new RegExp(/\.css$/).test(sourcePath)) {
+                    return sourcePath
+                }
+                const fullPath = path.resolve(file._base, sourcePath)
+                return path.relative(this.dest, fullPath)
+            }))
+            this.pipeline.push(sourcemaps.write('.'))
+        }
+
+        this.setDestination()
+
+        for (let item of this.pipeline) {
+            this.src = this.src.pipe(item)
+        }
+
+        return this.src
     }
 
     stream() {
@@ -59,38 +93,6 @@ class Sass {
             this.pipeline.push(destination)
         }
 
-    }
-
-    setup() {
-        this.pipeline.push(sass(this.options).on('error', sass.logError))
-
-        this.postcssPlugins()
-
-        // Post css piping
-        if (argv.production && !argv.critical) {
-            this.pipeline.push(hash(new JsonStore('dev-manifest.json')))
-        }
-
-        // Wrap pipe between src and dest with sourcemaps
-        if (argv.sourcemaps) {
-            this.pipeline.unshift(sourcemaps.init())
-            this.pipeline.push(sourcemaps.mapSources((sourcePath, file) => {
-                if (sourcePath.includes('node_modules') || new RegExp(/\.css$/).test(sourcePath)) {
-                    return sourcePath
-                }
-                const fullPath = path.resolve(file._base, sourcePath)
-                return path.relative(this.dest, fullPath)
-            }))
-            this.pipeline.push(sourcemaps.write('.'))
-        }
-
-        this.setDestination()
-
-        for (let item of this.pipeline) {
-            this.src = this.src.pipe(item)
-        }
-
-        return this.src
     }
 
 }

@@ -7,10 +7,10 @@ class SassTasks {
         const tasks = []
         for (const conf of dev.sassConfigs) {
             const task = () => {
-                const sassTask = new Sass(conf.src.segments.absolutePath, conf.dest.segments.absolutePath, conf.opts)
+                const sassTask = new Sass(conf.src.segments.absolutePath, conf.dest.segments.absolutePath, conf.opts, task)
                 return stream
-                    ? sassTask.stream().setup()
-                    : sassTask.setup()
+                    ? sassTask.stream().build()
+                    : sassTask.build()
             }
             Object.defineProperty(task, 'name', {value: `compiling ${conf.src.name()}`})
 

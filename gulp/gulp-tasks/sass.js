@@ -20,19 +20,19 @@ const hash = require('../plugins/hash.js')
 
 class Sass {
 
-    constructor(_src, dest, options, task) {
-        this.src = src(_src, {since: lastRun(task)})
+    constructor(_src, dest, options) {
+        this.src = src(_src)
         this.dest = dest
-        this.options = {
-            fiber: Fiber,
-            includePaths: options.includePaths,
-        }
+        this.options = options
         this.isStream = false
         this.pipeline = []
     }
 
-    build() {
-        this.pipeline.push(sass(this.options).on('error', sass.logError))
+    build(cb) {
+        this.pipeline.push(sass({
+            fiber: Fiber,
+            includePaths: this.options.includePaths,
+        }).on('error', sass.logError))
 
         this.postcssPlugins()
 
@@ -60,7 +60,7 @@ class Sass {
             this.src = this.src.pipe(item)
         }
 
-        return this.src
+        return this.src.on('end', cb)
     }
 
     stream() {

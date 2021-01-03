@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://dev-conf/./dummy-site/src/app2.js"],"names":["console","log"],"mappings":"AAAAA,QAAQC,IAAI","file":"app2.4efe79292e04a36239b9.js","sourcesContent":["console.log('app2')\n"],"sourceRoot":""}

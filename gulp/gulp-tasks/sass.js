@@ -25,7 +25,7 @@ class Sass {
         this.dest = dest
         this.options = {
             fiber: Fiber,
-            ...options,
+            includePaths: options.includePaths,
         }
         this.isStream = false
         this.pipeline = []

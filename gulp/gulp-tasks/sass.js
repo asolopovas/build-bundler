@@ -2,7 +2,7 @@ const sourcemaps = require('gulp-sourcemaps')
 const argv = require('yargs').argv;
 const {src, dest, lastRun} = require('gulp')
 const sass = require('gulp-sass');
-const dependents = require('gulp-dependents')
+const Fiber = require('fibers')
 sass.compiler = require('sass');
 const JsonStore = require('../../src/JsonStore')
 const path = require('path')
@@ -23,13 +23,15 @@ class Sass {
     constructor(_src, dest, options, task) {
         this.src = src(_src, {since: lastRun(task)})
         this.dest = dest
-        this.options = options
+        this.options = {
+            fiber: Fiber,
+            ...options,
+        }
         this.isStream = false
         this.pipeline = []
     }
 
     build() {
-        this.pipeline.push(dependents())
         this.pipeline.push(sass(this.options).on('error', sass.logError))
 
         this.postcssPlugins()

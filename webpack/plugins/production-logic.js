@@ -6,7 +6,7 @@ class ProductionLogic {
       const manifest = new JsonStore('dev-manifest.json')
       const jsonStats = stats.toJson()
       for (let asset of Object.keys(jsonStats.assetsByChunkName)) {
-        manifest.put(`${asset}.js`, `${asset}.${stats.hash}.js`)
+        manifest.put(`${asset}.js`, jsonStats.assetsByChunkName[asset][0])
       }
     })
   }
